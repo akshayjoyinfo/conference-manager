@@ -8,6 +8,9 @@ class CreateConferenceCommand(BaseModel):
     start_date: datetime
     end_date: datetime
 
+class UpdateConferenceCommand(CreateConferenceCommand):
+    pass
+
 
 class ConferenceInDBBase(BaseModel):
     id: int

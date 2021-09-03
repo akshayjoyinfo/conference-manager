@@ -7,6 +7,7 @@ from starlette.responses import JSONResponse
 
 from controllers.health.status import health_router
 from controllers.v1.conference import conference_router
+from controllers.v1.talk import talk_router
 
 from config import settings
 
@@ -24,4 +25,5 @@ async def exception_callback(request: Request, exc: Exception):
     return JSONResponse({"detail": "Unknown Error"}, status_code=500)
 
 app.include_router(health_router, tags=["HealthCheck"])
-app.include_router(conference_router, tags=["Conference"])
+app.include_router(conference_router, prefix="/conferences",tags=["Conferences"])
+app.include_router(talk_router, prefix="/conferences",tags=["Talks"])
