@@ -8,6 +8,7 @@ from starlette.responses import JSONResponse
 from controllers.health.status import health_router
 from controllers.v1.conference import conference_router
 from controllers.v1.talk import talk_router
+from controllers.v1.talk_manager import talk_manager_router
 
 from config import settings
 
@@ -27,3 +28,6 @@ async def exception_callback(request: Request, exc: Exception):
 app.include_router(health_router, tags=["HealthCheck"])
 app.include_router(conference_router, prefix="/conferences",tags=["Conferences"])
 app.include_router(talk_router, prefix="/conferences",tags=["Talks"])
+app.include_router(talk_manager_router, prefix="/conferences",tags=["Talks"])
+
+

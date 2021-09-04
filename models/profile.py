@@ -16,9 +16,11 @@ class Participant(Base):
     id = Column(Integer, primary_key=True)
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     talk_id = Column(Integer, ForeignKey('talks.id'))
+    conference_id = Column(Integer, ForeignKey('conferences.id'))
 
 class Speaker(Base):
     __tablename__ ='speakers'
     id = Column(Integer, primary_key=True)
     profile_id = Column(Integer, ForeignKey('profiles.id'))
     talk_id = Column(Integer, ForeignKey('talks.id'))
+    conference_id = Column(Integer, ForeignKey('conferences.id'))

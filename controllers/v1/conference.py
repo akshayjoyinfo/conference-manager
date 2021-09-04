@@ -2,12 +2,13 @@ from typing import Any, List
 
 import logging
 import sys
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from schemas.conference import CreateConferenceCommand, ConferenceResponse, ConferenceResponse, UpdateConferenceCommand
 from db.database import get_db
 from models.conference import Conference
+from models.talk import Talk
 
 logging.config.fileConfig('logger.conf', disable_existing_loggers=False)
 
@@ -37,10 +38,21 @@ def create_conference(details: CreateConferenceCommand, db: Session = Depends(ge
 
 @conference_router.get("", response_model=List[ConferenceResponse])
 def get_conferences( db: Session = Depends(get_db),
-    skip: int = 0,
-    limit: int = 100):
-    conferences = db.query(Conference).offset(skip).limit(limit).all()
+    skip: int = Query(0),
+    limit: int = Query(10)):
+    conferences = db.query(Conference).order_by(Conference.id.desc()).offset(skip).limit(limit).all()
     return conferences
+
+@conference_router.get("/{id}", response_model=ConferenceResponse)
+def get_conference_detail( id: int, db: Session = Depends(get_db)):
+    conference = db.query(Conference).get(id)
+
+    if not conference:
+        raise HTTPException(status_code=404, detail="Invalid Confernece not found")
+    
+    return conference
+
+
 
 @conference_router.put("/{id}", response_model=ConferenceResponse)
 def update_conference( id: int, details: UpdateConferenceCommand, db: Session = Depends(get_db)):

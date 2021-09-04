@@ -18,6 +18,7 @@ class TalkInDBBase(BaseModel):
     description: str
     talk_date: datetime
     duration: str
+    conference_id: int
 
 
     class Config:

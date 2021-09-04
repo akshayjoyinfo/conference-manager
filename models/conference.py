@@ -15,4 +15,4 @@ class Conference(Base):
     end_date = Column(DateTime, nullable=True)
     created_at = Column(DateTime, nullable=False)
     updated_at = Column(DateTime, nullable=True)
-    talks = relationship("Talk")
+    talks = relationship("Talk", backref="conferences")

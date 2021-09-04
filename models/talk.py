@@ -6,6 +6,7 @@ from db.database import Base
 
 from .profile import Participant, Speaker , Profile
 
+
 class Talk(Base):
     __tablename__ ='talks'
     id = Column(Integer, primary_key=True)

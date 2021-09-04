@@ -1,6 +1,8 @@
+from typing import List
 from pydantic import BaseModel
 from datetime import datetime
 
+from .talk import TalkResponse
 
 class CreateConferenceCommand(BaseModel):
     title: str
@@ -25,4 +27,5 @@ class ConferenceInDBBase(BaseModel):
 
 # Properties to return to client
 class ConferenceResponse(ConferenceInDBBase):
-    pass
+    talks: List[TalkResponse]
+
